@@ -23,19 +23,8 @@
       });
     }, { threshold:0.12, rootMargin:'0px 0px -6% 0px' });
     document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
-
-    var bars = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          entry.target.style.width = entry.target.getAttribute('data-fill') + '%';
-          bars.unobserve(entry.target);
-        }
-      });
-    }, { threshold:0.5 });
-    document.querySelectorAll('.bd-fill').forEach(function(el){ bars.observe(el); });
   } else {
     document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('is-visible'); });
-    document.querySelectorAll('.bd-fill').forEach(function(el){ el.style.width = el.getAttribute('data-fill') + '%'; });
   }
 
   if(!reduced){

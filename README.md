@@ -1,13 +1,17 @@
-# Planz for Metal Scope — ERP Proposal Site
+# Planz for Metal Scope: ERP + Website Bundle Proposal
 
-A static, hostable website. No build step, no dependencies.
+A single self-contained page. No build step, no dependencies, no external files.
 
 ```
 index.html
-css/style.css
-js/main.js
 favicon.svg
 ```
+
+One page, three bundles, reached by anchor links (no separate pages to host):
+
+- `#foundation` — ERP Foundation + Website Foundation, Rs 8,50,000
+- `#digital-first` — ERP Foundation + Website Growth, Rs 9,75,000
+- `#growth` — ERP Operations + Website Growth, Rs 12,75,000 (recommended)
 
 ## Run locally
 
@@ -19,14 +23,14 @@ npx serve .
 
 ## Host it (pick one)
 
-**Netlify** — drag the whole folder onto [app.netlify.com/drop](https://app.netlify.com/drop). Live in seconds, gets you a free `*.netlify.app` URL. Add a custom domain later from Site settings.
+**Netlify** — drag the folder onto [app.netlify.com/drop](https://app.netlify.com/drop). Live in seconds, gets you a free `*.netlify.app` URL.
 
 **Vercel** — `npx vercel` inside this folder, follow the prompts.
 
-**GitHub Pages** — push this folder to a repo, then in Settings → Pages set the source to the `main` branch root.
+**GitHub Pages** — push this folder to a repo, then in Settings, Pages, set the source to the `main` branch root.
 
-**Any regular web host / cPanel** — upload the 4 files above via FTP/File Manager into your domain's `public_html` (or subdomain folder). No server-side code needed, it's plain HTML/CSS/JS.
+**Any regular web host / cPanel** — upload `index.html` and `favicon.svg` via FTP/File Manager into your domain's `public_html`. No server-side code needed.
 
 ## Editing content
 
-Everything is in `index.html` — copy, pricing, table rows. Colors and layout are in `css/style.css` (CSS custom properties at the top control the palette, including a dark mode). Scroll reveal and parallax logic is in `js/main.js`.
+Everything (copy, pricing, colors, layout, scroll animation) lives inline in `index.html`. CSS custom properties near the top of the `<style>` block control the palette, including a dark mode.

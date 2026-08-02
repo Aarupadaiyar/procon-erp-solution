@@ -3,10 +3,212 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Planz for Metal Scope: Foundation Bundle Proposal</title>
-<meta name="description" content="A combined ERP and website Foundation bundle proposal for Metal Scope India, prepared by Planz.">
+<title>Planz for Metal Scope: ERP + Website Bundle Proposal</title>
+<meta name="description" content="Three ways to bundle an ERP and a website for Metal Scope India, prepared by Planz.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="css/style.css">
+<style>
+:root{
+  --bg:#f1ede4; --bg-raise:#ffffff; --bg-plate:#e7e1d2;
+  --ink:#20262a; --ink-dim:#565f66; --ink-faint:#8a8f93;
+  --line:#d9d2c0; --accent:#d85c1e; --accent-ink:#fff7ef; --blue:#136f79;
+  --font-sans: ui-sans-serif, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#12161a; --bg-raise:#181e23; --bg-plate:#1e262b;
+    --ink:#eae7df; --ink-dim:#98a2aa; --ink-faint:#5c656c;
+    --line:#2b3238; --accent:#ff7a34; --accent-ink:#1a0f08; --blue:#4fb8c4;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161a; --bg-raise:#181e23; --bg-plate:#1e262b;
+  --ink:#eae7df; --ink-dim:#98a2aa; --ink-faint:#5c656c;
+  --line:#2b3238; --accent:#ff7a34; --accent-ink:#1a0f08; --blue:#4fb8c4;
+  color-scheme: dark;
+}
+:root[data-theme="light"]{
+  --bg:#f1ede4; --bg-raise:#ffffff; --bg-plate:#e7e1d2;
+  --ink:#20262a; --ink-dim:#565f66; --ink-faint:#8a8f93;
+  --line:#d9d2c0; --accent:#d85c1e; --accent-ink:#fff7ef; --blue:#136f79;
+  color-scheme: light;
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+body{
+  margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-sans);
+  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+img,svg{ display:block; max-width:100%; }
+a{ color:inherit; }
+h1,h2,h3,h4,p{ margin:0; text-wrap:balance; }
+ul{ margin:0; padding:0; list-style:none; }
+.wrap{ max-width:1180px; margin:0 auto; padding-left:6vw; padding-right:6vw; }
+@media (max-width:640px){ .wrap{ padding-left:22px; padding-right:22px; } }
+
+.eyebrow{ display:flex; align-items:center; gap:12px; }
+.eyebrow::before{ content:""; width:20px; height:1px; background:var(--accent); display:inline-block; flex:none; }
+.eyebrow .en{ font-family:var(--font-mono); font-size:12.5px; color:var(--accent); font-weight:700; }
+.eyebrow .el{ font-family:var(--font-mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); }
+
+h2.h-section{ font-size:clamp(28px,4vw,46px); font-weight:800; letter-spacing:-0.01em; line-height:1.1; margin-top:16px; max-width:24ch; }
+
+[data-reveal]{
+  opacity:0; transform:translateY(24px);
+  transition:opacity .7s cubic-bezier(.16,.8,.24,1), transform .7s cubic-bezier(.16,.8,.24,1);
+  transition-delay:var(--delay,0ms);
+}
+[data-reveal].is-visible{ opacity:1; transform:translateY(0); }
+@media (prefers-reduced-motion: reduce){ [data-reveal]{ opacity:1; transform:none; transition:none; } }
+
+.frame{ position:relative; }
+.frame::before,.frame::after{ content:""; position:absolute; width:14px; height:14px; pointer-events:none; }
+.frame::before{ top:-1px; left:-1px; border-top:2px solid var(--accent); border-left:2px solid var(--accent); }
+.frame::after{ bottom:-1px; right:-1px; border-bottom:2px solid var(--accent); border-right:2px solid var(--accent); }
+
+/* ============ HEADER ============ */
+.topbar{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between; padding:16px 6vw;
+  font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+  background:color-mix(in srgb, var(--bg) 78%, transparent); backdrop-filter:blur(10px);
+  border-bottom:1px solid transparent; transition:border-color .3s;
+}
+.topbar.scrolled{ border-bottom-color:var(--line); }
+.topbar .mark{ font-weight:800; font-family:var(--font-sans); font-size:15px; }
+.topbar .mark span{ color:var(--accent); }
+.topbar .doc{ color:var(--ink-faint); display:flex; gap:18px; }
+@media (max-width:760px){ .topbar .doc{ display:none; } }
+
+/* ============ HERO ============ */
+.hero{
+  position:relative; min-height:88svh; display:flex; flex-direction:column; justify-content:center; overflow:hidden;
+  background:radial-gradient(ellipse 60% 50% at 78% 18%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 60%), var(--bg);
+}
+.hero-grid{
+  position:absolute; inset:-10% -10%;
+  background-image:
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--blue) 22%, transparent) 0 1px, transparent 1px 64px),
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--blue) 22%, transparent) 0 1px, transparent 1px 64px);
+  opacity:.35; mask-image:radial-gradient(ellipse 70% 60% at 60% 30%, black, transparent 75%);
+}
+.hero-beam{
+  position:absolute; right:-10%; top:-15%; width:70%; height:140%;
+  background:linear-gradient(115deg, transparent 40%, color-mix(in srgb, var(--accent) 14%, transparent) 48%, transparent 56%);
+}
+.hero-inner{ position:relative; z-index:2; padding-top:110px; padding-bottom:60px; }
+.hero-tag{
+  font-family:var(--font-mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-faint); display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px;
+}
+.hero-tag b{ color:var(--accent); font-weight:700; }
+.hero h1{ font-size:clamp(34px,6vw,66px); font-weight:900; letter-spacing:-0.02em; line-height:1.06; max-width:19ch; }
+.hero h1 em{ font-style:normal; color:var(--accent); }
+.hero-sub{ margin-top:22px; max-width:58ch; font-size:clamp(15px,1.4vw,18px); color:var(--ink-dim); }
+
+.stat-strip{ margin-top:46px; display:grid; grid-template-columns:repeat(4,auto); gap:28px; border-top:1px solid var(--line); padding-top:20px; }
+@media (max-width:900px){ .stat-strip{ grid-template-columns:repeat(2,auto); row-gap:20px; } }
+.stat-strip div b{ display:block; font-family:var(--font-sans); font-size:16px; font-weight:800; color:var(--ink); }
+.stat-strip div small{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); }
+
+/* ============ SECTION SHELLS ============ */
+section{ position:relative; }
+section[id]{ scroll-margin-top:64px; }
+.band{ padding:96px 0; }
+@media (max-width:760px){ .band{ padding:66px 0; } }
+.band-raise{ background:var(--bg-raise); }
+.band-plate{ background:var(--bg-plate); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+
+.section-label{
+  font-family:var(--font-mono); font-size:12px; letter-spacing:.06em; color:var(--ink-dim);
+  display:flex; align-items:center; gap:10px; margin-top:18px;
+}
+.section-label a{ text-decoration:none; padding:4px 0; border-bottom:1px solid transparent; }
+.section-label a:hover{ border-bottom-color:var(--ink-faint); }
+.section-label .here{ color:var(--ink); font-weight:700; }
+.section-label .sep{ color:var(--ink-faint); }
+
+/* ============ TAG ROW ============ */
+.tag-row{ margin-top:36px; display:flex; flex-wrap:wrap; gap:10px; }
+.tag{
+  font-family:var(--font-mono); font-size:12px; letter-spacing:.05em; padding:9px 14px;
+  border:1px solid var(--line); background:var(--bg-raise); color:var(--ink-dim);
+}
+.tag b{ color:var(--accent); margin-right:6px; }
+
+/* ============ BUNDLE COMPARISON NAV ============ */
+.bundle-nav{ margin-top:44px; display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+@media (max-width:820px){ .bundle-nav{ grid-template-columns:1fr; } }
+.bnav{
+  display:flex; flex-direction:column; gap:6px; padding:24px 22px; background:var(--bg-raise); text-decoration:none;
+  border-top:3px solid transparent; transition:background .2s;
+}
+.bnav:hover{ background:var(--bg-plate); }
+.bnav.rec{ border-top-color:var(--accent); }
+.bnav-rec{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+.bnav-name{ font-size:17px; font-weight:800; color:var(--ink); }
+.bnav-price{ font-family:var(--font-mono); font-size:19px; font-weight:700; color:var(--ink); }
+.bnav-tag{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-dim); }
+
+.compare-notes{ margin-top:26px; display:flex; flex-direction:column; gap:12px; }
+.compare-notes li{ font-size:14px; color:var(--ink-dim); display:flex; gap:10px; }
+.compare-notes li::before{ content:"\203A"; color:var(--accent); font-weight:700; flex:none; }
+.compare-notes b{ color:var(--ink); }
+
+/* ============ PACKAGE CARDS ============ */
+.pkg-grid{ margin-top:44px; display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:stretch; }
+@media (max-width:900px){ .pkg-grid{ grid-template-columns:1fr; } }
+.pkg{ background:var(--bg-raise); border:1px solid var(--line); padding:32px 28px 28px; display:flex; flex-direction:column; gap:18px; height:100%; }
+.pkg-head{ display:flex; flex-direction:column; gap:4px; }
+.pkg .p-eyebrow{ font-family:var(--font-mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); }
+.pkg h3{ font-size:23px; font-weight:800; }
+.pkg .price{ font-family:var(--font-mono); font-size:clamp(28px,3vw,34px); font-weight:700; }
+.pkg .p-for{
+  font-family:var(--font-mono); font-size:12px; letter-spacing:.04em; color:var(--accent);
+  border-top:1px solid var(--line); padding-top:14px; text-transform:uppercase;
+}
+.pkg-body{ display:flex; flex-direction:column; gap:22px; flex:1; }
+.pkg-group h4{ font-family:var(--font-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:5px; }
+.pkg-group .grp-sub{ font-size:12.5px; color:var(--ink-faint); line-height:1.5; margin-bottom:13px; max-width:46ch; }
+.pkg-group ul{ display:flex; flex-direction:column; gap:12px; }
+.pkg li{ font-size:13.5px; color:var(--ink); display:flex; gap:9px; align-items:flex-start; line-height:1.4; }
+.pkg li::before{ content:"\25AA"; color:var(--accent); flex:none; font-size:9px; margin-top:5px; }
+.li-body{ display:flex; flex-direction:column; gap:3px; }
+.li-head{ font-weight:600; color:var(--ink); }
+.li-sub{ font-size:12.3px; font-weight:400; color:var(--ink-dim); line-height:1.5; }
+.pkg-foot{ font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); border-top:1px solid var(--line); padding-top:12px; }
+
+/* ============ BUNDLE TOTAL ============ */
+.bundle{ margin-top:44px; border:1px solid var(--line); background:var(--bg-plate); }
+.bundle-sum{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:26px 28px; border-bottom:1px solid var(--line); }
+.bundle-sum .terms{ font-family:var(--font-mono); font-size:13px; color:var(--ink-dim); display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.bundle-sum .terms b{ color:var(--ink); }
+.bundle-sum .plus{ color:var(--accent); font-weight:700; }
+.bundle-sum .total{ font-family:var(--font-mono); font-size:clamp(24px,2.6vw,30px); font-weight:800; color:var(--accent); }
+.bundle-why{ padding:22px 28px; display:flex; flex-direction:column; gap:10px; }
+.bundle-why li{ font-size:13.8px; color:var(--ink-dim); display:flex; gap:9px; }
+.bundle-why li::before{ content:"\203A"; color:var(--accent); font-weight:700; flex:none; }
+
+/* ============ FOOTER / CTA ============ */
+footer{ padding:0; border-top:1px solid var(--line); }
+.cta-bar{ padding:60px 0; text-align:center; background:var(--bg-plate); border-bottom:1px solid var(--line); }
+.cta-bar h2{ max-width:16ch; margin:16px auto 0; }
+.cta-bar .tag-row{ justify-content:center; }
+.cta-row{ margin-top:32px; display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+.btn{ font-family:var(--font-mono); font-size:13px; letter-spacing:.05em; text-transform:uppercase; padding:14px 24px; border:1px solid var(--ink); display:inline-flex; gap:10px; align-items:center; }
+.btn.primary{ background:var(--accent); border-color:var(--accent); color:var(--accent-ink); font-weight:700; }
+.btn.ghost{ color:var(--ink); }
+.foot-bottom{
+  max-width:1180px; margin:0 auto; padding:26px 6vw; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  font-family:var(--font-mono); font-size:11px; color:var(--ink-faint);
+}
+@media (max-width:640px){ .foot-bottom{ padding:26px 22px; } }
+
+::selection{ background:var(--accent); color:var(--accent-ink); }
+</style>
 </head>
 <body>
 
@@ -14,7 +216,7 @@
   <div class="mark">PLAN<span>Z</span></div>
   <div class="doc">
     <span>PREPARED FOR METAL SCOPE</span>
-    <span>DOC NO. PZ MSI FND 01</span>
+    <span>DOC NO. PZ MSI BND 01</span>
     <span id="clock-date"></span>
   </div>
 </div>
@@ -24,15 +226,15 @@
   <div class="hero-grid" data-parallax="0.12"></div>
   <div class="hero-beam" data-parallax="0.05"></div>
   <div class="wrap hero-inner">
-    <div class="hero-tag"><b>PROPOSAL</b><span>&middot;</span><span>ERP + WEBSITE FOUNDATION</span><span>&middot;</span><span>PLANZ FOR METAL SCOPE</span></div>
-    <h1>Your billing system and your website. <em>Built together, priced together.</em></h1>
-    <p class="hero-sub">One Foundation bundle: the ERP that runs billing and stock across your plants, and the website that gets Metal Scope found on Google and cited by AI tools. Both from one team, one contract.</p>
+    <div class="hero-tag"><b>PROPOSAL</b><span>&middot;</span><span>ERP + WEBSITE BUNDLES</span><span>&middot;</span><span>PLANZ FOR METAL SCOPE</span></div>
+    <h1>Your billing system and your website. <em>Three ways to bundle them.</em></h1>
+    <p class="hero-sub">One proposal, three combinations of ERP and website, each built from the same two package levels. Compare them below, then jump straight to the one that fits.</p>
 
     <div class="stat-strip" data-reveal>
-      <div><b>&#8377;8,50,000</b><small>Total Investment</small></div>
-      <div><b>2 Systems</b><small>ERP + Website</small></div>
-      <div><b>1 Team</b><small>One Proposal, One Bill</small></div>
-      <div><b>Foundation Tier</b><small>Entry Point, Both Packages</small></div>
+      <div><b>3 Bundles</b><small>One Proposal</small></div>
+      <div><b>&#8377;8.5L to &#8377;12.75L</b><small>Investment Range</small></div>
+      <div><b>1 Team</b><small>ERP + Website, One Bill</small></div>
+      <div><b>Growth Bundle</b><small>What We Recommend</small></div>
     </div>
   </div>
 </section>
@@ -46,19 +248,17 @@
     </div>
 
     <div class="bundle-nav" data-reveal>
-      <a href="index.html" class="bnav current">
-        <span class="bnav-you">You are here</span>
+      <a href="#foundation" class="bnav">
         <span class="bnav-name">Foundation Bundle</span>
         <span class="bnav-price">&#8377;8,50,000</span>
         <span class="bnav-tag">ERP Foundation + Website Foundation</span>
       </a>
-      <a href="digital-first-bundle.html" class="bnav">
-        <span class="bnav-you">&nbsp;</span>
+      <a href="#digital-first" class="bnav">
         <span class="bnav-name">Digital First Bundle</span>
         <span class="bnav-price">&#8377;9,75,000</span>
         <span class="bnav-tag">ERP Foundation + Website Growth</span>
       </a>
-      <a href="growth-bundle.html" class="bnav rec">
+      <a href="#growth" class="bnav rec">
         <span class="bnav-rec">Recommended</span>
         <span class="bnav-name">Growth Bundle</span>
         <span class="bnav-price">&#8377;12,75,000</span>
@@ -74,32 +274,69 @@
   </div>
 </section>
 
-<!-- ================= PACKAGES ================= -->
-<section class="band band-raise">
+<!-- ================= FOUNDATION BUNDLE ================= -->
+<section class="band band-raise" id="foundation">
   <div class="wrap">
     <div data-reveal>
-      <div class="eyebrow"><span class="en">02</span><span class="el">What's included</span></div>
-      <h2 class="h-section">Two Foundation packages, bundled into one proposal.</h2>
+      <div class="eyebrow"><span class="en">02</span><span class="el">Foundation Bundle</span></div>
+      <h2 class="h-section">ERP Foundation, paired with Website Foundation.</h2>
+      <div class="section-label"><span class="here">Foundation &#8377;8,50,000</span><span class="sep">&middot;</span><a href="#digital-first">Digital First &#8377;9,75,000</a><span class="sep">&middot;</span><a href="#growth">Growth &#8377;12,75,000</a></div>
     </div>
 
     <div class="pkg-grid">
       <!-- ERP FOUNDATION -->
       <div class="pkg frame" data-reveal>
-        <div class="p-eyebrow">PACKAGE 01 &middot; BILLING &amp; INVENTORY</div>
-        <h3>ERP Foundation</h3>
-        <div class="price">&#8377;7,00,000</div>
+        <div class="pkg-head">
+          <div class="p-eyebrow">PACKAGE 01 &middot; BILLING &amp; INVENTORY</div>
+          <h3>ERP Foundation</h3>
+          <div class="price">&#8377;7,00,000</div>
+        </div>
         <div class="p-for">One system for billing and stock, all plants</div>
         <div class="pkg-body">
           <div class="pkg-group">
+            <h4>Billing &amp; Invoicing</h4>
+            <p class="grp-sub">GST-correct invoices for every kind of sale you make, ready to send in seconds.</p>
             <ul>
-              <li>GST billing for products and works contracts</li>
-              <li>Live stock across Pondicherry, Vannur, Chennai</li>
-              <li>Purchase and sales order management</li>
-              <li>Client and vendor ledger with outstanding</li>
-              <li>Core reports: stock, sales, GST summary</li>
-              <li>Role-based access for owner, accounts, store</li>
-              <li>2-week onboarding and staff training</li>
-              <li>3 months dedicated support</li>
+              <li><span class="li-body"><span class="li-head">GST billing for products and works contracts</span><span class="li-sub">Correctly separates standard product invoices from works-contract billing rules, so nothing gets miscoded when you file.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Auto-numbered, sequential invoicing</span><span class="li-sub">Every invoice numbered in order automatically, exactly as GST filing expects, with no manual renumbering.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Branded, downloadable PDF invoices</span><span class="li-sub">Invoices carry your letterhead and go out as a clean PDF, by email or WhatsApp, in one click.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Partial and part-order billing</span><span class="li-sub">Bill part of a large order as it ships, instead of waiting for the whole order to close.</span></span></li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Inventory &amp; Stock</h4>
+            <p class="grp-sub">One live number for what is actually on the ground at each plant.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">Live stock across Pondicherry, Vannur, Chennai</span><span class="li-sub">One number for what is actually on hand at each plant, updated as material moves, not a week-old count from a notebook.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Low-stock and reorder alerts</span><span class="li-sub">Get flagged before a shortage shows up at the dispatch counter, not after.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Full stock movement history</span><span class="li-sub">Every transfer and issue traceable back to who moved it, when, and why.</span></span></li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Orders &amp; Ledgers</h4>
+            <p class="grp-sub">Every order and every rupee owed, tracked from one screen.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">Purchase and sales order management</span><span class="li-sub">Every order tracked from raised to received or dispatched, so nothing is lost between a phone call and a delivery.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Client and vendor ledger with outstanding</span><span class="li-sub">See exactly who owes you, who you owe, and for how long, without calling accounts to ask.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Ageing view on receivables</span><span class="li-sub">See at a glance which overdue payments are 10 days late and which are 90, instead of scrolling one long list.</span></span></li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Reports &amp; Access</h4>
+            <p class="grp-sub">The numbers your management team actually checks, and who is allowed to see what.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">Core reports: stock, sales, GST summary</span><span class="li-sub">The three reports your accountant needs at month-end, ready without rebuilding a spreadsheet.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Role-based access for owner, accounts, store</span><span class="li-sub">Store staff see stock, accounts see billing, you see everything. Nobody edits what they should not.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Mobile-friendly access for quick checks</span><span class="li-sub">Check today's sales or stock levels from a phone, without opening a laptop.</span></span></li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Rollout &amp; Support</h4>
+            <p class="grp-sub">Getting your team live on it properly, and staying reachable after.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">2-week onboarding and staff training</span><span class="li-sub">Your team is entering real transactions inside two weeks, not still watching training videos a month in.</span></span></li>
+              <li><span class="li-body"><span class="li-head">3 months dedicated support</span><span class="li-sub">Direct access to the person who built it while your team gets used to running on it day to day.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Secure cloud hosting with daily backups</span><span class="li-sub">Your billing and stock data lives off one laptop, backed up every day, accessible from anywhere.</span></span></li>
             </ul>
           </div>
         </div>
@@ -108,13 +345,16 @@
 
       <!-- WEBSITE FOUNDATION -->
       <div class="pkg frame" data-reveal>
-        <div class="p-eyebrow">PACKAGE 02 &middot; WEBSITE</div>
-        <h3>Website Foundation</h3>
-        <div class="price">&#8377;1,50,000</div>
+        <div class="pkg-head">
+          <div class="p-eyebrow">PACKAGE 02 &middot; WEBSITE</div>
+          <h3>Website Foundation</h3>
+          <div class="price">&#8377;1,50,000</div>
+        </div>
         <div class="p-for">A site built to be found on Google and cited by AI</div>
         <div class="pkg-body">
           <div class="pkg-group">
             <h4>Website Build</h4>
+            <p class="grp-sub">The pages, forms and trust signals a first-time visitor needs to act.</p>
             <ul>
               <li>Up to 6 pages: Home, About, Services, Products/Gallery, Testimonials, Contact</li>
               <li>Mobile, tablet and desktop responsive design</li>
@@ -130,6 +370,7 @@
           </div>
           <div class="pkg-group">
             <h4>AI &amp; SEO Foundations</h4>
+            <p class="grp-sub">What gets you found on Google and cited by ChatGPT, Perplexity and Gemini.</p>
             <ul>
               <li>On-page SEO: meta titles, descriptions, header tags</li>
               <li>Schema.org structured data (Organization, LocalBusiness)</li>
@@ -141,6 +382,7 @@
           </div>
           <div class="pkg-group">
             <h4>Analytics &amp; Social</h4>
+            <p class="grp-sub">Know who is visiting, and give them somewhere to follow you.</p>
             <ul>
               <li>Google Analytics 4 and Search Console setup</li>
               <li>Basic goal and event tracking</li>
@@ -151,6 +393,7 @@
           </div>
           <div class="pkg-group">
             <h4>Support</h4>
+            <p class="grp-sub">Handover done properly, not just a login and a goodbye.</p>
             <ul>
               <li>1 round of design revisions</li>
               <li>Basic training session on editing content</li>
@@ -179,30 +422,421 @@
   </div>
 </section>
 
+<!-- ================= DIGITAL FIRST BUNDLE ================= -->
+<section class="band band-plate" id="digital-first">
+  <div class="wrap">
+    <div data-reveal>
+      <div class="eyebrow"><span class="en">03</span><span class="el">Digital First Bundle</span></div>
+      <h2 class="h-section">ERP Foundation, paired with Website Growth.</h2>
+      <div class="section-label"><a href="#foundation">Foundation &#8377;8,50,000</a><span class="sep">&middot;</span><span class="here">Digital First &#8377;9,75,000</span><span class="sep">&middot;</span><a href="#growth">Growth &#8377;12,75,000</a></div>
+    </div>
+
+    <div class="pkg-grid">
+      <!-- ERP FOUNDATION -->
+      <div class="pkg frame" data-reveal>
+        <div class="pkg-head">
+          <div class="p-eyebrow">PACKAGE 01 &middot; BILLING &amp; INVENTORY</div>
+          <h3>ERP Foundation</h3>
+          <div class="price">&#8377;7,00,000</div>
+        </div>
+        <div class="p-for">One system for billing and stock, all plants</div>
+        <div class="pkg-body">
+          <div class="pkg-group">
+            <h4>Billing &amp; Invoicing</h4>
+            <p class="grp-sub">GST-correct invoices for every kind of sale you make, ready to send in seconds.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">GST billing for products and works contracts</span><span class="li-sub">Correctly separates standard product invoices from works-contract billing rules, so nothing gets miscoded when you file.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Auto-numbered, sequential invoicing</span><span class="li-sub">Every invoice numbered in order automatically, exactly as GST filing expects, with no manual renumbering.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Branded, downloadable PDF invoices</span><span class="li-sub">Invoices carry your letterhead and go out as a clean PDF, by email or WhatsApp, in one click.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Partial and part-order billing</span><span class="li-sub">Bill part of a large order as it ships, instead of waiting for the whole order to close.</span></span></li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Inventory &amp; Stock</h4>
+            <p class="grp-sub">One live number for what is actually on the ground at each plant.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">Live stock across Pondicherry, Vannur, Chennai</span><span class="li-sub">One number for what is actually on hand at each plant, updated as material moves, not a week-old count from a notebook.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Low-stock and reorder alerts</span><span class="li-sub">Get flagged before a shortage shows up at the dispatch counter, not after.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Full stock movement history</span><span class="li-sub">Every transfer and issue traceable back to who moved it, when, and why.</span></span></li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Orders &amp; Ledgers</h4>
+            <p class="grp-sub">Every order and every rupee owed, tracked from one screen.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">Purchase and sales order management</span><span class="li-sub">Every order tracked from raised to received or dispatched, so nothing is lost between a phone call and a delivery.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Client and vendor ledger with outstanding</span><span class="li-sub">See exactly who owes you, who you owe, and for how long, without calling accounts to ask.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Ageing view on receivables</span><span class="li-sub">See at a glance which overdue payments are 10 days late and which are 90, instead of scrolling one long list.</span></span></li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Reports &amp; Access</h4>
+            <p class="grp-sub">The numbers your management team actually checks, and who is allowed to see what.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">Core reports: stock, sales, GST summary</span><span class="li-sub">The three reports your accountant needs at month-end, ready without rebuilding a spreadsheet.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Role-based access for owner, accounts, store</span><span class="li-sub">Store staff see stock, accounts see billing, you see everything. Nobody edits what they should not.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Mobile-friendly access for quick checks</span><span class="li-sub">Check today's sales or stock levels from a phone, without opening a laptop.</span></span></li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Rollout &amp; Support</h4>
+            <p class="grp-sub">Getting your team live on it properly, and staying reachable after.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">2-week onboarding and staff training</span><span class="li-sub">Your team is entering real transactions inside two weeks, not still watching training videos a month in.</span></span></li>
+              <li><span class="li-body"><span class="li-head">3 months dedicated support</span><span class="li-sub">Direct access to the person who built it while your team gets used to running on it day to day.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Secure cloud hosting with daily backups</span><span class="li-sub">Your billing and stock data lives off one laptop, backed up every day, accessible from anywhere.</span></span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="pkg-foot">REPLACES SPREADSHEETS AND WHATSAPP WITH ONE LIVE SYSTEM</div>
+      </div>
+
+      <!-- WEBSITE GROWTH -->
+      <div class="pkg frame" data-reveal>
+        <div class="pkg-head">
+          <div class="p-eyebrow">PACKAGE 02 &middot; WEBSITE</div>
+          <h3>Website Growth</h3>
+          <div class="price">&#8377;2,75,000</div>
+        </div>
+        <div class="p-for">Everything in Foundation, plus the integration layer</div>
+        <div class="pkg-body">
+          <div class="pkg-group">
+            <h4>Website Build</h4>
+            <p class="grp-sub">A fully custom, self-editable site your team can update without calling us.</p>
+            <ul>
+              <li>Up to 12 pages, fully custom UI/UX, not template-modified</li>
+              <li>CMS integration (WordPress/Webflow), your team can self-edit</li>
+              <li>Blog and resource section for ongoing content</li>
+              <li>Custom lead capture forms with multi-step, conditional logic</li>
+              <li>Speed optimization: image compression, lazy loading, caching</li>
+              <li>Core Web Vitals compliance</li>
+              <li>Mobile-first design audit and refinement</li>
+              <li>Custom 404 page and broken link handling</li>
+              <li>Cookie consent banner</li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Advanced AI &amp; GEO Optimization</h4>
+            <p class="grp-sub">The layer that gets Metal Scope named directly in AI answers, not just ranked in search.</p>
+            <ul>
+              <li>FAQ schema markup, feeds AI answer engines directly</li>
+              <li>Conversational query content blocks, phrased how people ask AI</li>
+              <li>Entity clarity optimization, so AI models describe you correctly</li>
+              <li>Content freshness strategy through the blog</li>
+              <li>Internal linking structure for AI and crawler discovery</li>
+              <li>Competitor AI-visibility baseline check</li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Analytics &amp; Tracking</h4>
+            <p class="grp-sub">Every click, scroll and ad interaction tied back to a real source.</p>
+            <ul>
+              <li>Google Tag Manager, one hub for all tracking</li>
+              <li>Meta Pixel and LinkedIn Insight Tag for retargeting</li>
+              <li>Microsoft Clarity or Hotjar heatmaps and session recordings</li>
+              <li>Custom event and goal tracking, UTM-tagged campaign links</li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>CRM &amp; Automation</h4>
+            <p class="grp-sub">Leads routed and followed up automatically, not left in an inbox.</p>
+            <ul>
+              <li>CRM-lite integration: Zoho, Mailchimp or HubSpot free tier</li>
+              <li>Automated lead notification workflow on new form submissions</li>
+              <li>Basic email capture and welcome automation sequence</li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Social Media</h4>
+            <p class="grp-sub">A branded presence across every platform that matters, running on a schedule.</p>
+            <ul>
+              <li>Instagram, Facebook, LinkedIn full branded setup</li>
+              <li>15 to 20 starter posts, content pillars defined</li>
+              <li>Scheduling tool setup, batch content instead of daily posting</li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Reporting &amp; Support</h4>
+            <p class="grp-sub">A monthly check-in so performance is a fact, not a guess.</p>
+            <ul>
+              <li>Monthly performance snapshot: GA4 and social reach</li>
+              <li>2 rounds of design revisions</li>
+              <li>CMS training session for your team</li>
+              <li>30-day post-launch support window</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pkg-foot">TURNS A STATIC SITE INTO A MEASURABLE, CONNECTED SYSTEM</div>
+      </div>
+    </div>
+
+    <div class="bundle" data-reveal>
+      <div class="bundle-sum">
+        <div class="terms">
+          <span>ERP Foundation <b>&#8377;7,00,000</b></span>
+          <span class="plus">+</span>
+          <span>Website Growth <b>&#8377;2,75,000</b></span>
+        </div>
+        <div class="total">&#8377;9,75,000 Total</div>
+      </div>
+      <ul class="bundle-why">
+        <li>Right if your billing needs are straightforward today, but leads and visibility cannot wait</li>
+        <li>One team, one contract, one bill instead of two separate vendors</li>
+        <li>ERP can step up to Operations later without touching the website work already done</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GROWTH BUNDLE ================= -->
+<section class="band band-raise" id="growth">
+  <div class="wrap">
+    <div data-reveal>
+      <div class="eyebrow"><span class="en">04</span><span class="el">Growth Bundle &middot; Recommended</span></div>
+      <h2 class="h-section">ERP Operations, paired with Website Growth.</h2>
+      <div class="section-label"><a href="#foundation">Foundation &#8377;8,50,000</a><span class="sep">&middot;</span><a href="#digital-first">Digital First &#8377;9,75,000</a><span class="sep">&middot;</span><span class="here">Growth &#8377;12,75,000</span></div>
+    </div>
+
+    <div class="pkg-grid">
+      <!-- ERP OPERATIONS -->
+      <div class="pkg frame" data-reveal>
+        <div class="pkg-head">
+          <div class="p-eyebrow">PACKAGE 01 &middot; BILLING &amp; INVENTORY</div>
+          <h3>ERP Operations</h3>
+          <div class="price">&#8377;10,00,000</div>
+        </div>
+        <div class="p-for">RA billing, traceability and site control</div>
+        <div class="pkg-body">
+          <div class="pkg-group">
+            <h4>Billing &amp; Invoicing</h4>
+            <p class="grp-sub">GST-correct invoices for every kind of sale you make, ready to send in seconds.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">GST billing for products and works contracts</span><span class="li-sub">Correctly separates standard product invoices from works-contract billing rules, so nothing gets miscoded when you file.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Auto-numbered, sequential invoicing</span><span class="li-sub">Every invoice numbered in order automatically, exactly as GST filing expects, with no manual renumbering.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Branded, downloadable PDF invoices</span><span class="li-sub">Invoices carry your letterhead and go out as a clean PDF, by email or WhatsApp, in one click.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Partial and part-order billing</span><span class="li-sub">Bill part of a large order as it ships, instead of waiting for the whole order to close.</span></span></li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Inventory &amp; Stock</h4>
+            <p class="grp-sub">One live number for what is actually on the ground at each plant.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">Live stock across Pondicherry, Vannur, Chennai</span><span class="li-sub">One number for what is actually on hand at each plant, updated as material moves, not a week-old count from a notebook.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Low-stock and reorder alerts</span><span class="li-sub">Get flagged before a shortage shows up at the dispatch counter, not after.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Full stock movement history</span><span class="li-sub">Every transfer and issue traceable back to who moved it, when, and why.</span></span></li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Orders &amp; Ledgers</h4>
+            <p class="grp-sub">Every order and every rupee owed, tracked from one screen.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">Purchase and sales order management</span><span class="li-sub">Every order tracked from raised to received or dispatched, so nothing is lost between a phone call and a delivery.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Client and vendor ledger with outstanding</span><span class="li-sub">See exactly who owes you, who you owe, and for how long, without calling accounts to ask.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Ageing view on receivables</span><span class="li-sub">See at a glance which overdue payments are 10 days late and which are 90, instead of scrolling one long list.</span></span></li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Reports &amp; Access</h4>
+            <p class="grp-sub">The numbers your management team actually checks, and who is allowed to see what.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">Core reports: stock, sales, GST summary</span><span class="li-sub">The three reports your accountant needs at month-end, ready without rebuilding a spreadsheet.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Role-based access for owner, accounts, store</span><span class="li-sub">Store staff see stock, accounts see billing, you see everything. Nobody edits what they should not.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Mobile-friendly access for quick checks</span><span class="li-sub">Check today's sales or stock levels from a phone, without opening a laptop.</span></span></li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Rollout &amp; Support</h4>
+            <p class="grp-sub">Getting your team live on it properly, and staying reachable after.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">2-week onboarding and staff training</span><span class="li-sub">Your team is entering real transactions inside two weeks, not still watching training videos a month in.</span></span></li>
+              <li><span class="li-body"><span class="li-head">3 months dedicated support</span><span class="li-sub">Direct access to the person who built it while your team gets used to running on it day to day.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Secure cloud hosting with daily backups</span><span class="li-sub">Your billing and stock data lives off one laptop, backed up every day, accessible from anywhere.</span></span></li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Plus, Operations</h4>
+            <p class="grp-sub">The part a generic system cannot do: government billing, material traceability and site accountability.</p>
+            <ul>
+              <li><span class="li-body"><span class="li-head">RA billing with retention for govt and PSU jobs</span><span class="li-sub">Raise running account bills stage by stage against project value, with retention percentage tracked automatically, not in a side register.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Heat number and test certificate traceability</span><span class="li-sub">Every batch's heat number followed from incoming coil to the invoice it ships on, certificate attached, ready for an RDSO or Railway audit in minutes.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Material-to-site tracking with wastage alerts</span><span class="li-sub">Material issued to an erection site is logged against the project, flagged the moment wastage crosses a set limit.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Costing split across all six verticals</span><span class="li-sub">PEB, bridges, rail cars and boiler jobs each costed on their own logic, so you know which vertical is actually paying for the others.</span></span></li>
+              <li><span class="li-body"><span class="li-head">Data migration from existing records</span><span class="li-sub">Your current Excel and Tally records brought across safely, so day one starts with real history, not a blank system.</span></span></li>
+              <li><span class="li-body"><span class="li-head">6 months support with a named account manager</span><span class="li-sub">One person who knows your plants and your billing, not a rotating ticket queue.</span></span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="pkg-foot">MATCHES HOW YOUR PLANTS AND GOVERNMENT BILLING ACTUALLY WORK</div>
+      </div>
+
+      <!-- WEBSITE GROWTH -->
+      <div class="pkg frame" data-reveal>
+        <div class="pkg-head">
+          <div class="p-eyebrow">PACKAGE 02 &middot; WEBSITE</div>
+          <h3>Website Growth</h3>
+          <div class="price">&#8377;2,75,000</div>
+        </div>
+        <div class="p-for">Everything in Foundation, plus the integration layer</div>
+        <div class="pkg-body">
+          <div class="pkg-group">
+            <h4>Website Build</h4>
+            <p class="grp-sub">A fully custom, self-editable site your team can update without calling us.</p>
+            <ul>
+              <li>Up to 12 pages, fully custom UI/UX, not template-modified</li>
+              <li>CMS integration (WordPress/Webflow), your team can self-edit</li>
+              <li>Blog and resource section for ongoing content</li>
+              <li>Custom lead capture forms with multi-step, conditional logic</li>
+              <li>Speed optimization: image compression, lazy loading, caching</li>
+              <li>Core Web Vitals compliance</li>
+              <li>Mobile-first design audit and refinement</li>
+              <li>Custom 404 page and broken link handling</li>
+              <li>Cookie consent banner</li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Advanced AI &amp; GEO Optimization</h4>
+            <p class="grp-sub">The layer that gets Metal Scope named directly in AI answers, not just ranked in search.</p>
+            <ul>
+              <li>FAQ schema markup, feeds AI answer engines directly</li>
+              <li>Conversational query content blocks, phrased how people ask AI</li>
+              <li>Entity clarity optimization, so AI models describe you correctly</li>
+              <li>Content freshness strategy through the blog</li>
+              <li>Internal linking structure for AI and crawler discovery</li>
+              <li>Competitor AI-visibility baseline check</li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Analytics &amp; Tracking</h4>
+            <p class="grp-sub">Every click, scroll and ad interaction tied back to a real source.</p>
+            <ul>
+              <li>Google Tag Manager, one hub for all tracking</li>
+              <li>Meta Pixel and LinkedIn Insight Tag for retargeting</li>
+              <li>Microsoft Clarity or Hotjar heatmaps and session recordings</li>
+              <li>Custom event and goal tracking, UTM-tagged campaign links</li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>CRM &amp; Automation</h4>
+            <p class="grp-sub">Leads routed and followed up automatically, not left in an inbox.</p>
+            <ul>
+              <li>CRM-lite integration: Zoho, Mailchimp or HubSpot free tier</li>
+              <li>Automated lead notification workflow on new form submissions</li>
+              <li>Basic email capture and welcome automation sequence</li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Social Media</h4>
+            <p class="grp-sub">A branded presence across every platform that matters, running on a schedule.</p>
+            <ul>
+              <li>Instagram, Facebook, LinkedIn full branded setup</li>
+              <li>15 to 20 starter posts, content pillars defined</li>
+              <li>Scheduling tool setup, batch content instead of daily posting</li>
+            </ul>
+          </div>
+          <div class="pkg-group">
+            <h4>Reporting &amp; Support</h4>
+            <p class="grp-sub">A monthly check-in so performance is a fact, not a guess.</p>
+            <ul>
+              <li>Monthly performance snapshot: GA4 and social reach</li>
+              <li>2 rounds of design revisions</li>
+              <li>CMS training session for your team</li>
+              <li>30-day post-launch support window</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pkg-foot">TURNS A STATIC SITE INTO A MEASURABLE, CONNECTED SYSTEM</div>
+      </div>
+    </div>
+
+    <div class="bundle" data-reveal>
+      <div class="bundle-sum">
+        <div class="terms">
+          <span>ERP Operations <b>&#8377;10,00,000</b></span>
+          <span class="plus">+</span>
+          <span>Website Growth <b>&#8377;2,75,000</b></span>
+        </div>
+        <div class="total">&#8377;12,75,000 Total</div>
+      </div>
+      <ul class="bundle-why">
+        <li>The only bundle that covers RA billing, retention and material traceability, the parts of your business a generic system cannot do</li>
+        <li>One team, one contract, one bill instead of two separate vendors</li>
+        <li>Named account manager on both the ERP and the website side for 6 months</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- ================= CTA / FOOTER ================= -->
 <footer>
   <div class="cta-bar">
     <div class="wrap" data-reveal style="padding-left:0;padding-right:0;">
-      <div class="eyebrow" style="justify-content:center;"><span class="en">03</span><span class="el">Next step</span></div>
+      <div class="eyebrow" style="justify-content:center;"><span class="en">05</span><span class="el">Next step</span></div>
       <h2 class="h-section">One team. Direct answers. No ticket queue.</h2>
       <div class="tag-row">
         <div class="tag">Talk to the person who built it</div>
-        <div class="tag">One proposal, two systems</div>
+        <div class="tag">One proposal, three ways to bundle it</div>
         <div class="tag">This proposal is our own work</div>
       </div>
       <div class="cta-row">
-        <a class="btn primary" href="https://wa.me/qr/ZQDEF3UDHWQTJ1" target="_blank" rel="noopener">Let's talk through the bundle</a>
+        <a class="btn primary" href="https://wa.me/qr/ZQDEF3UDHWQTJ1" target="_blank" rel="noopener">Let's talk through the bundles</a>
         <a class="btn ghost" href="https://wa.me/qr/ZQDEF3UDHWQTJ1" target="_blank" rel="noopener">Request a walkthrough</a>
       </div>
     </div>
   </div>
   <div class="foot-bottom">
     <span>PLANZ AGENCY</span>
-    <span>DOC NO. PZ MSI FND 01</span>
+    <span>DOC NO. PZ MSI BND 01</span>
     <span>PREPARED EXCLUSIVELY FOR METAL SCOPE (INDIA) PVT. LTD.</span>
   </div>
 </footer>
 
-<script src="js/main.js"></script>
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var topbar = document.getElementById('topbar');
+  var clock = document.getElementById('clock-date');
+  if(clock){ clock.textContent = new Date().toLocaleDateString('en-IN', { year:'numeric', month:'short', day:'2-digit' }); }
+  function onScroll(){ if(window.scrollY > 40){ topbar.classList.add('scrolled'); } else { topbar.classList.remove('scrolled'); } }
+  document.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  var counters = new Map();
+  document.querySelectorAll('[data-reveal]').forEach(function(el){
+    var key = el.parentElement;
+    var n = counters.get(key) || 0;
+    el.style.setProperty('--delay', Math.min(n * 60, 360) + 'ms');
+    counters.set(key, n + 1);
+  });
+
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+      });
+    }, { threshold:0.12, rootMargin:'0px 0px -6% 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+  if(!reduced){
+    var pEls = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
+    var ticking = false;
+    function updateParallax(){
+      var y = window.scrollY;
+      pEls.forEach(function(el){
+        var factor = parseFloat(el.getAttribute('data-parallax')) || 0.1;
+        el.style.transform = 'translateY(' + (y * factor) + 'px)';
+      });
+      ticking = false;
+    }
+    document.addEventListener('scroll', function(){
+      if(!ticking){ window.requestAnimationFrame(updateParallax); ticking = true; }
+    }, { passive:true });
+    updateParallax();
+  }
+})();
+</script>
 </body>
 </html>
